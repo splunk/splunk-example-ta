@@ -26,9 +26,12 @@ def get_account_api_key(session_key: str, account_name: str):
 
 def get_data_from_api(logger: logging.Logger, api_key: str):
     logger.info("Getting data from an external API")
-    response = requests.get("http://server:5000/events", headers={
-        "API-Key": api_key,
-    })
+    response = requests.get(
+        "http://server:5000/events",
+        headers={
+            "API-Key": api_key,
+        },
+    )
     response.raise_for_status()
     data = response.json()
     return data
