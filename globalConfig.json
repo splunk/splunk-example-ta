@@ -1,0 +1,187 @@
+{
+    "pages": {
+        "configuration": {
+            "tabs": [
+                {
+                    "name": "account",
+                    "table": {
+                        "actions": [
+                            "edit",
+                            "delete",
+                            "clone"
+                        ],
+                        "header": [
+                            {
+                                "label": "Name",
+                                "field": "name"
+                            }
+                        ]
+                    },
+                    "entity": [
+                        {
+                            "type": "text",
+                            "label": "Name",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Account Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                },
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of input name should be between 1 and 100",
+                                    "minLength": 1,
+                                    "maxLength": 100
+                                }
+                            ],
+                            "field": "name",
+                            "help": "A unique name for the account.",
+                            "required": true
+                        },
+                        {
+                            "type": "text",
+                            "label": "API key",
+                            "field": "api_key",
+                            "help": "API key",
+                            "required": true,
+                            "encrypted": true
+                        }
+                    ],
+                    "title": "Accounts"
+                },
+                {
+                    "type": "loggingTab"
+                }
+            ],
+            "title": "Configuration",
+            "description": "Set up your add-on"
+        },
+        "inputs": {
+            "services": [
+                {
+                    "name": "example",
+                    "entity": [
+                        {
+                            "type": "text",
+                            "label": "Name",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Input Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                },
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of input name should be between 1 and 100",
+                                    "minLength": 1,
+                                    "maxLength": 100
+                                }
+                            ],
+                            "field": "name",
+                            "help": "A unique name for the data input.",
+                            "required": true
+                        },
+                        {
+                            "type": "interval",
+                            "label": "Interval",
+                            "defaultValue": "300",
+                            "field": "interval",
+                            "options": {
+                                "range": [
+                                    10,
+                                    301
+                                ]
+                            },
+                            "help": "Time interval of the data input, in seconds.",
+                            "required": true
+                        },
+                        {
+                            "type": "index",
+                            "field": "index",
+                            "label": "Index"
+                        },
+                        {
+                            "type": "singleSelect",
+                            "label": "Account to use",
+                            "options": {
+                                "referenceName": "account"
+                            },
+                            "help": "Account to use for this input.",
+                            "field": "account",
+                            "required": true
+                        }
+                    ],
+                    "inputHelperModule": "example_helper",
+                    "title": "example"
+                }
+            ],
+            "title": "Inputs",
+            "description": "Manage your data inputs",
+            "table": {
+                "actions": [
+                    "edit",
+                    "delete",
+                    "clone"
+                ],
+                "header": [
+                    {
+                        "label": "Name",
+                        "field": "name"
+                    },
+                    {
+                        "label": "Interval",
+                        "field": "interval"
+                    },
+                    {
+                        "label": "Index",
+                        "field": "index"
+                    },
+                    {
+                        "label": "Status",
+                        "field": "disabled"
+                    }
+                ],
+                "moreInfo": [
+                    {
+                        "label": "Name",
+                        "field": "name"
+                    },
+                    {
+                        "label": "Interval",
+                        "field": "interval"
+                    },
+                    {
+                        "label": "Index",
+                        "field": "index"
+                    },
+                    {
+                        "label": "Status",
+                        "field": "disabled",
+                        "mapping": {
+                            "true": "Inactive",
+                            "false": "Active"
+                        }
+                    }
+                ]
+            }
+        },
+        "dashboard": {
+            "panels": [
+                {
+                    "name": "default"
+                }
+            ]
+        }
+    },
+    "meta": {
+        "name": "Splunk_TA_Example",
+        "restRoot": "Splunk_TA_Example",
+        "version": "0.0.0+140993b",
+        "displayName": "Splunk Add-on for Example",
+        "schemaVersion": "0.0.9",
+        "supportedThemes": [
+            "light",
+            "dark"
+        ]
+    }
+}
