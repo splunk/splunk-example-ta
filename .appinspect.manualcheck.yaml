@@ -20,3 +20,33 @@ check_for_secret_disclosure:
   comment: 'done'
 check_for_executable_flag:
   comment: 'done'
+check_for_known_vulnerabilities_in_third_party_libraries:
+  comment: 'done'
+check_embedded_links:
+  comment: 'done'
+check_for_auto_update_features:
+  comment: 'done'
+check_link_includes_contact_info:
+  comment: 'done'
+check_documented_included_open_source:
+  comment: 'done'
+check_editing_and_proofreading:
+  comment: 'done'
+check_authorization_credentials:
+  comment: 'done'
+check_for_stacktrace_returned_to_user:
+  comment: 'done'
+check_fs_writes:
+  comment: 'done'
+check_user_privileges:
+  comment: 'done'
+check_for_reverse_shells:
+  comment: 'done'
+check_requires_access_to_files_outside_apps_dir:
+  comment: 'done'
+check_for_offensive_material:
+  comment: 'done'
+check_dependencies:
+  comment: 'done'
+check_hard_coded_paths:
+  comment: 'done'
