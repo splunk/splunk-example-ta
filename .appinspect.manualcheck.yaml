@@ -1,0 +1,22 @@
+check_for_binary_files_without_source_code:
+  comment: 'done'
+check_for_remote_code_execution_in_javascript:
+  comment: 'done'
+check_for_builtin_functions:
+  comment: 'done'
+check_for_data_compression_and_archiving:
+  comment: 'done'
+check_for_file_and_directory_access:
+  comment: 'done'
+check_for_generic_operating_system_services:
+  comment: 'done'
+check_for_importing_modules:
+  comment: 'done'
+check_for_plain_text_credentials_in_python:
+  comment: 'done'
+check_for_environment_variable_use_in_python:
+  comment: 'done'
+check_for_secret_disclosure:
+  comment: 'done'
+check_for_executable_flag:
+  comment: 'done'

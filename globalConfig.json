@@ -176,7 +176,7 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
-        "version": "0.0.1+a7f3a8a",
+        "version": "0.0.1+fd58961",
         "displayName": "Splunk Add-on for Example",
         "schemaVersion": "0.0.9",
         "supportedThemes": [
