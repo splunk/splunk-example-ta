@@ -32,6 +32,12 @@ jobs:
           source .venv/bin/activate
       - run: pip install -r requirements-dev.txt
       - run: ucc-gen build
+      # Taken from https://github.com/splunk/addonfactory-ucc-generator-action/blob/main/action.yml.
+      # Should resolve `check_for_expansive_permissions` check from AppInspect CLI.
+      - run: chmod -R +r output
+        shell: bash
+      - run: chmod -R go-w output
+        shell: bash
       - uses: actions/upload-artifact@v4
         with:
           name: output
