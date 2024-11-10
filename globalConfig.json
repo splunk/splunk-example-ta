@@ -176,12 +176,13 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
-        "version": "0.0.0+140993b",
+        "version": "5.52.0+0513fbf6",
         "displayName": "Splunk Add-on for Example",
         "schemaVersion": "0.0.9",
         "supportedThemes": [
             "light",
             "dark"
-        ]
+        ],
+        "_uccVersion": "5.52.0"
     }
 }
