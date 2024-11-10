@@ -1,3 +1,1 @@
 splunktaucclib
-splunk-sdk
-solnlib

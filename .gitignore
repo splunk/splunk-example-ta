@@ -1,3 +1,4 @@
 .idea
 .venv
 output
+.DS_Store
