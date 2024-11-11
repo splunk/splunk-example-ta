@@ -4,6 +4,8 @@
             "tabs": [
                 {
                     "name": "account",
+                    "restHandlerModule": "example_api_key_verification",
+                    "restHandlerClass": "APIKeyValidator",
                     "table": {
                         "actions": [
                             "edit",
@@ -176,7 +178,7 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
-        "version": "0.0.1+97695b3",
+        "version": "0.0.1+2cf76ae",
         "displayName": "Splunk Add-on for Example",
         "schemaVersion": "0.0.9",
         "supportedThemes": [
