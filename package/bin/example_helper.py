@@ -1,9 +1,16 @@
+import datetime
+from datetime import timezone
 import json
 import logging
+from typing import Optional
 
 import import_declare_test
+
+import example_utils
+
 import requests
 from solnlib import conf_manager, log
+from solnlib.modular_input import checkpointer
 from splunklib import modularinput as smi
 
 
@@ -24,7 +31,11 @@ def get_account_api_key(session_key: str, account_name: str):
     return account_conf_file.get(account_name).get("api_key")
 
 
-def get_data_from_api(logger: logging.Logger, api_key: str):
+def get_data_from_api(
+    logger: logging.Logger, api_key: str, checkpoint: Optional[str] = None
+):
+    # So far not used.
+    del checkpoint
     logger.info("Getting data from an external API")
 
     def _call_api():
@@ -67,6 +78,11 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
         logger = logger_for_input(normalized_input_name)
         try:
             session_key = inputs.metadata["session_key"]
+            kvstore_checkpointer = checkpointer.KVStoreCheckpointer(
+                "example_checkpointer",
+                session_key,
+                ADDON_NAME,
+            )
             log_level = conf_manager.get_log_level(
                 logger=logger,
                 session_key=session_key,
@@ -76,7 +92,11 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
             logger.setLevel(log_level)
             log.modular_input_start(logger, normalized_input_name)
             api_key = get_account_api_key(session_key, input_item.get("account"))
-            data = get_data_from_api(logger, api_key)
+            checkpointer_key_name = example_utils.get_example_collection_key_name(
+                input_name
+            )
+            current_checkpoint = kvstore_checkpointer.get(checkpointer_key_name)
+            data = get_data_from_api(logger, api_key, current_checkpoint)
             sourcetype = "example:events"
             for line in data:
                 event_writer.write_event(
@@ -86,6 +106,10 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
                         sourcetype=sourcetype,
                     )
                 )
+            new_checkpoint = (
+                datetime.datetime.utcnow().replace(tzinfo=timezone.utc).timestamp()
+            )
+            kvstore_checkpointer.update(checkpointer_key_name, new_checkpoint)
             log.events_ingested(
                 logger,
                 input_name,
