@@ -14,18 +14,15 @@ from solnlib.modular_input import checkpointer
 from splunklib import modularinput as smi
 
 
-ADDON_NAME = "Splunk_TA_Example"
-
-
 def logger_for_input(input_name: str) -> logging.Logger:
-    return log.Logs().get_logger(f"{ADDON_NAME.lower()}_{input_name}")
+    return log.Logs().get_logger(f"{example_utils.ADDON_NAME.lower()}_{input_name}")
 
 
 def get_account_api_key(session_key: str, account_name: str):
     cfm = conf_manager.ConfManager(
         session_key,
-        ADDON_NAME,
-        realm=f"__REST_CREDENTIAL__#{ADDON_NAME}#configs/conf-splunk_ta_example_account",
+        example_utils.ADDON_NAME,
+        realm=f"__REST_CREDENTIAL__#{example_utils.ADDON_NAME}#configs/conf-splunk_ta_example_account",
     )
     account_conf_file = cfm.get_conf("splunk_ta_example_account")
     return account_conf_file.get(account_name).get("api_key")
@@ -81,12 +78,12 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
             kvstore_checkpointer = checkpointer.KVStoreCheckpointer(
                 "example_checkpointer",
                 session_key,
-                ADDON_NAME,
+                example_utils.ADDON_NAME,
             )
             log_level = conf_manager.get_log_level(
                 logger=logger,
                 session_key=session_key,
-                app_name=ADDON_NAME,
+                app_name=example_utils.ADDON_NAME,
                 conf_name="splunk_ta_example_settings",
             )
             logger.setLevel(log_level)
