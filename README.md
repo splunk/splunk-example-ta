@@ -1,5 +1,12 @@
 # Splunk_TA_Example
 
+## Build and run Splunk and `server`
+
+```bash
+cd scripts
+./run_locally.sh
+```
+
 ## Build and run `server`
 
 ```bash
