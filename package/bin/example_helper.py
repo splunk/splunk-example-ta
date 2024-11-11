@@ -26,15 +26,24 @@ def get_account_api_key(session_key: str, account_name: str):
 
 def get_data_from_api(logger: logging.Logger, api_key: str):
     logger.info("Getting data from an external API")
-    response = requests.get(
-        "http://server:5000/events",
-        headers={
-            "API-Key": api_key,
-        },
-    )
-    response.raise_for_status()
-    data = response.json()
-    return data
+
+    def _call_api():
+        response = requests.get(
+            "http://server:5000/events",
+            headers={
+                "API-Key": api_key,
+            },
+            timeout=20,
+        )
+        response.raise_for_status()
+        return response.json()
+
+    for i in range(3):
+        try:
+            return _call_api()
+        except requests.exceptions.HTTPError:
+            logger.warning("Failed to get data from the API, retrying...")
+    raise Exception("Failed to get data from the API")
 
 
 def validate_input(definition: smi.ValidationDefinition):
@@ -68,7 +77,7 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
             log.modular_input_start(logger, normalized_input_name)
             api_key = get_account_api_key(session_key, input_item.get("account"))
             data = get_data_from_api(logger, api_key)
-            sourcetype = "dummy-data"
+            sourcetype = "example:events"
             for line in data:
                 event_writer.write_event(
                     smi.Event(
@@ -90,6 +99,6 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
             log.log_exception(
                 logger,
                 e,
-                "my custom error type",
+                "IngestionError",
                 msg_before="Exception raised while ingesting data for demo_input: ",
             )
