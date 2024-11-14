@@ -1,1 +1,1 @@
-splunk-add-on-ucc-framework==5.52.0
+splunk-add-on-ucc-framework==5.53.0
