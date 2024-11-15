@@ -1,2 +1,4 @@
 pytest-splunk-addon==5.4.1
 splunk-add-on-ucc-framework==5.53.0
+pytest
+poetry
