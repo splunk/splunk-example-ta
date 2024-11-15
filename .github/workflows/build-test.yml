@@ -85,7 +85,6 @@ jobs:
       - run: |
           ./scripts/run_locally.sh
       - run: |
-          pip install -r requirements-dev.txt
           pytest --splunk-type=external --splunk-app=package --splunk-data-generator=pytest-splunk-addon-data.conf --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
       - name: Set output if steps failed
         run: |

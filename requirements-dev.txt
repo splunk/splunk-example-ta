@@ -1,1 +1,2 @@
 splunk-add-on-ucc-framework==5.52.0
+pytest-splunk-addon==5.4.1
