@@ -8,29 +8,89 @@ on:
       - "**"
   workflow_dispatch:
 
-permissions:
-  actions: read
-  checks: write
-  contents: write
-  deployments: read
-  packages: write
-  pull-requests: read
-  statuses: write
 jobs:
-  call-workflow:
-    if: github.event.action != 'labeled' || github.actor != 'renovate[bot]'
-    uses: splunk/addonfactory-workflow-addon-release/.github/workflows/reusable-build-test-release.yml@v4.17.5
-    secrets:
-      GH_TOKEN_ADMIN: ${{ secrets.GH_TOKEN_ADMIN }}
-      SEMGREP_PUBLISH_TOKEN: ${{ secrets.SEMGREP_PUBLISH_TOKEN }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      OTHER_TA_REQUIRED_CONFIGS: ${{ secrets.OTHER_TA_REQUIRED_CONFIGS }}
-      FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
-      SA_GH_USER_NAME: ${{ secrets.SA_GH_USER_NAME }}
-      SA_GH_USER_EMAIL: ${{ secrets.SA_GH_USER_EMAIL }}
-      SA_GPG_PRIVATE_KEY: ${{ secrets.SA_GPG_PRIVATE_KEY }}
-      SA_GPG_PASSPHRASE: ${{ secrets.SA_GPG_PASSPHRASE }}
-      SPL_COM_USER: ${{ secrets.SPL_COM_USER }}
-      SPL_COM_PASSWORD: ${{ secrets.SPL_COM_PASSWORD }}
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: pre-commit/action@v3.0.1
+
+  build:
+    needs:
+      - pre-commit
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.7"
+      - run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+      - run: pip install -r requirements-dev.txt
+      - run: ucc-gen build
+      # Taken from https://github.com/splunk/addonfactory-ucc-generator-action/blob/main/action.yml.
+      # Should resolve `check_for_expansive_permissions` check from AppInspect CLI.
+      - run: chmod -R +r output
+        shell: bash
+      - run: chmod -R go-w output
+        shell: bash
+      - uses: actions/upload-artifact@v4
+        with:
+          name: output
+          path: output/
+      - run: ucc-gen package --path output/Splunk_TA_Example
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Splunk_TA_Example
+          path: Splunk_TA_Example*.tar.gz
+
+  splunk-appinspect-cli:
+    name: splunk-appinspect-cli ${{ matrix.tags }}
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      matrix:
+        tags:
+          - "cloud"
+          - "appapproval"
+          - "deprecated_feature"
+          - "developer_guidance"
+          - "future"
+          - "self-service"
+          - "splunk_appinspect"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: Splunk_TA_Example
+          path: build/package
+      - uses: splunk/appinspect-cli-action@v2.8
+        with:
+          app_path: build/package
+          included_tags: ${{ matrix.tags }}
+
+  psa-test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.7"
+      - run: |
+          ./scripts/run_splunk.sh
+          until curl -Lsk "https://localhost:8088/services/collector/health" &>/dev/null ; do echo -n "Waiting for HEC-" && sleep 5 ; done
+        timeout-minutes: 5
+      - run: |
+          pip install -r requirements-dev.txt
+          pytest --splunk-type=external --splunk-app=package --splunk-data-generator=pytest-splunk-addon-data.conf --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
+      - name: Set output if steps failed
+        run: |
+          echo "failed=${{ env.failed }}" >> $GITHUB_ENV
+    outputs:
+      failed: ${{ env.failed }}
