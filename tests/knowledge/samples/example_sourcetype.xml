@@ -5,7 +5,7 @@
   <version id="0.0.1" />
   <event code="" name="Dummy event" format="JSON">
     <version>0.0.1</version>
-    <transport type="modinput" sourcetype="PSA_test" source="Example_TA" host="ip-10.202.7.251" />
+    <transport type="modinput" sourcetype="example:events" source="Example_TA" host="ip-10.202.7.251" />
     <source>
       <jira id="0" />
       <comment>lab, These are sample events used to generate PSA tests</comment>
