@@ -8,73 +8,15 @@ on:
       - "**"
   workflow_dispatch:
 
+permissions:
+  actions: read
+  checks: write
+  contents: write
+  deployments: read
+  packages: write
+  pull-requests: read
+  statuses: write
 jobs:
-  pre-commit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - uses: pre-commit/action@v3.0.1
-
-  build:
-    needs:
-      - pre-commit
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.7"
-      - run: |
-          python3 -m venv .venv
-          source .venv/bin/activate
-      - run: pip install -r requirements-dev.txt
-      - run: ucc-gen build
-      # Taken from https://github.com/splunk/addonfactory-ucc-generator-action/blob/main/action.yml.
-      # Should resolve `check_for_expansive_permissions` check from AppInspect CLI.
-      - run: chmod -R +r output
-        shell: bash
-      - run: chmod -R go-w output
-        shell: bash
-      - uses: actions/upload-artifact@v4
-        with:
-          name: output
-          path: output/
-      - run: ucc-gen package --path output/Splunk_TA_Example
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Splunk_TA_Example
-          path: Splunk_TA_Example*.tar.gz
-
-  splunk-appinspect-cli:
-    name: splunk-appinspect-cli ${{ matrix.tags }}
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    strategy:
-      matrix:
-        tags:
-          - "cloud"
-          - "appapproval"
-          - "deprecated_feature"
-          - "developer_guidance"
-          - "future"
-          - "self-service"
-          - "splunk_appinspect"
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: Splunk_TA_Example
-          path: build/package
-      - uses: splunk/appinspect-cli-action@v2.8
-        with:
-          app_path: build/package
-          included_tags: ${{ matrix.tags }}
-
   call-workflow:
     if: github.event.action != 'labeled' || github.actor != 'renovate[bot]'
     uses: splunk/addonfactory-workflow-addon-release/.github/workflows/reusable-build-test-release.yml@v4.17.5
