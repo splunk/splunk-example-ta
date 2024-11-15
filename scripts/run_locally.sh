@@ -1,7 +1,6 @@
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 REPO_ROOT_DIR=$(cd "$SCRIPT_DIR/.." && pwd)
 
-cd ../
 docker compose down
 python3 -m venv .venv
 source .venv/bin/activate

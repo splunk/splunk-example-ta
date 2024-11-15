@@ -75,19 +75,20 @@ jobs:
           app_path: build/package
           included_tags: ${{ matrix.tags }}
 
-  psa-tests:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.7"
-      - run: |
-          ./scripts/run_locally.sh
-      - run: |
-          pytest --splunk-type=external --splunk-app=package --splunk-data-generator=pytest-splunk-addon-data.conf --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
-      - name: Set output if steps failed
-        run: |
-          echo "failed=${{ env.failed }}" >> $GITHUB_ENV
-    outputs:
-      failed: ${{ env.failed }}
+  call-workflow:
+    if: github.event.action != 'labeled' || github.actor != 'renovate[bot]'
+    uses: splunk/addonfactory-workflow-addon-release/.github/workflows/reusable-build-test-release.yml@v4.17.5
+    secrets:
+      GH_TOKEN_ADMIN: ${{ secrets.GH_TOKEN_ADMIN }}
+      SEMGREP_PUBLISH_TOKEN: ${{ secrets.SEMGREP_PUBLISH_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      OTHER_TA_REQUIRED_CONFIGS: ${{ secrets.OTHER_TA_REQUIRED_CONFIGS }}
+      FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
+      SA_GH_USER_NAME: ${{ secrets.SA_GH_USER_NAME }}
+      SA_GH_USER_EMAIL: ${{ secrets.SA_GH_USER_EMAIL }}
+      SA_GPG_PRIVATE_KEY: ${{ secrets.SA_GPG_PRIVATE_KEY }}
+      SA_GPG_PASSPHRASE: ${{ secrets.SA_GPG_PASSPHRASE }}
+      SPL_COM_USER: ${{ secrets.SPL_COM_USER }}
+      SPL_COM_PASSWORD: ${{ secrets.SPL_COM_PASSWORD }}
