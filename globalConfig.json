@@ -115,17 +115,20 @@
                             "required": true
                         },
                         {
-                            "type": "integer",
+                            "type": "text",
                             "label": "Fetch from Page",
                             "defaultValue": "0",
                             "field": "fetch_from",
-                            "options": {
-                                "range": [
-                                    0,
-                                    10000
-                                ],
-                                "isInteger": true
-                            },
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        0,
+                                        10000
+                                    ],
+                                    "isInteger": true
+                                }
+                            ],
                             "help": "Page to fetch the data from. Default: 0.",
                             "required": false
                         }
@@ -195,13 +198,13 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
-        "version": "0.0.1+15d0f3a",
+        "version": "0.0.1+74cc0f8",
         "displayName": "Splunk Add-on for Example",
         "schemaVersion": "0.0.9",
         "supportedThemes": [
             "light",
             "dark"
         ],
-        "_uccVersion": "5.52.0"
+        "_uccVersion": "5.53.0"
     }
 }
