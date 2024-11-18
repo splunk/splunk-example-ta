@@ -17,6 +17,8 @@
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 REPO_ROOT_DIR=$(cd "$SCRIPT_DIR/.." && pwd)
 
+ls -l $REPO_ROOT_DIR/output/Splunk_TA_Example/
+
 # running on ARM Mac
 if [[ $(uname -m) == 'arm64' ]]; then
   export DOCKER_DEFAULT_PLATFORM=linux/amd64
