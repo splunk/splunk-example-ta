@@ -113,6 +113,21 @@
                             "help": "Account to use for this input.",
                             "field": "account",
                             "required": true
+                        },
+                        {
+                            "type": "integer",
+                            "label": "Fetch from Page",
+                            "defaultValue": "0",
+                            "field": "fetch_from",
+                            "options": {
+                                "range": [
+                                    0,
+                                    10000
+                                ],
+                                "isInteger": true
+                            },
+                            "help": "Page to fetch the data from. Default: 0.",
+                            "required": false
                         }
                     ],
                     "inputHelperModule": "example_helper",
