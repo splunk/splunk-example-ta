@@ -13,22 +13,22 @@
     <raw><![CDATA[{"event":"Event 6","id":6}]]></raw>
     <cim>
       <models>
-        <model>Alerts:Alerts</model>
+        <model>Alerts</model>
       </models>
       <cim_fields>
         <field name="app" value="sample_app" />
+        <field name="body" value="This event is for PSA test"/>
         <field name="description" value="sample_description" />
         <field name="dest" value="sample_dest" />
         <field name="dest_type" value="sample_dest_type" />
         <field name="id" value="sample_id" />
         <field name="mitre_technique_id" value="sample_mitre_technique_id" />
-        <field name="severity" value="sample_severity" />
-        <field name="severity_id" value="sample_severity_id" />
+        <field name="severity" value="low" />
         <field name="signature" value="sample_signature" />
         <field name="signature_id" value="sample_signature_id" />
         <field name="src" value="sample_src" />
         <field name="src_type" value="sample_src_type" />
-        <field name="type" value="sample_type" />
+        <field name="type" value="alert" />
         <field name="user" value="sample_user" />
         <field name="user_name" value="sample_user_name" />
         <field name="vendor_account" value="sample_vendor_account" />

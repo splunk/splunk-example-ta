@@ -1,3 +1,4 @@
+name: Gold TA CI
 on:
   push:
     branches:
