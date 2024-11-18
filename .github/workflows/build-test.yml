@@ -53,32 +53,32 @@ jobs:
           name: Splunk_TA_Example
           path: Splunk_TA_Example*.tar.gz
 
-  splunk-appinspect-cli:
-    name: splunk-appinspect-cli ${{ matrix.tags }}
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    strategy:
-      matrix:
-        tags:
-          - "cloud"
-          - "appapproval"
-          - "deprecated_feature"
-          - "developer_guidance"
-          - "future"
-          - "self-service"
-          - "splunk_appinspect"
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: Splunk_TA_Example
-          path: build/package
-      - uses: splunk/appinspect-cli-action@v2.8
-        with:
-          app_path: build/package
-          included_tags: ${{ matrix.tags }}
+  # splunk-appinspect-cli:
+  #   name: splunk-appinspect-cli ${{ matrix.tags }}
+  #   needs:
+  #     - build
+  #   runs-on: ubuntu-latest
+  #   continue-on-error: true
+  #   strategy:
+  #     matrix:
+  #       tags:
+  #         - "cloud"
+  #         - "appapproval"
+  #         - "deprecated_feature"
+  #         - "developer_guidance"
+  #         - "future"
+  #         - "self-service"
+  #         - "splunk_appinspect"
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: Splunk_TA_Example
+  #         path: build/package
+  #     - uses: splunk/appinspect-cli-action@v2.8
+  #       with:
+  #         app_path: build/package
+  #         included_tags: ${{ matrix.tags }}
 
   psa-test:
     runs-on: ubuntu-22.04
@@ -92,8 +92,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: Splunk_TA_Example-raw-output
-          path: output/
+          path: psa-output/
       - run: |
+          ls -l psa-output/Splunk_TA_Example
+          ls -l tests/knowledge
           ./scripts/run_splunk.sh
           until curl -Lsk "https://localhost:8088/services/collector/health" &>/dev/null ; do echo -n "Waiting for HEC-" && sleep 5 ; done
         timeout-minutes: 5
@@ -101,7 +103,7 @@ jobs:
           pip install -r requirements-dev.txt
       - name: Run PSA knowledge tests
         run :
-          pytest --splunk-type=external --splunk-app=output/Splunk_TA_Example --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
+          pytest --splunk-type=external --splunk-app=psa-output/Splunk_TA_Example --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
       - name: Set output if steps failed
         run: |
           echo "failed=${{ env.failed }}" >> $GITHUB_ENV

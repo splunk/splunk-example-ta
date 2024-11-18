@@ -17,7 +17,7 @@
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 REPO_ROOT_DIR=$(cd "$SCRIPT_DIR/.." && pwd)
 
-ls -l $REPO_ROOT_DIR/output/Splunk_TA_Example/
+ls -l $REPO_ROOT_DIR/psa-output/Splunk_TA_Example/
 
 # running on ARM Mac
 if [[ $(uname -m) == 'arm64' ]]; then
@@ -25,7 +25,7 @@ if [[ $(uname -m) == 'arm64' ]]; then
 fi
 
 docker run \
-  -v "$REPO_ROOT_DIR/output/Splunk_TA_Example:/opt/splunk/etc/apps/Splunk_TA_Example" \
+  -v "$REPO_ROOT_DIR/psa-output/Splunk_TA_Example:/opt/splunk/etc/apps/Splunk_TA_Example" \
   -p 8000:8000 \
   -p 8088:8088 \
   -p 8089:8089 \
