@@ -6,6 +6,9 @@ app = Flask(__name__)
 
 API_KEY = "super-secret-api-token"
 
+# Mock data for demonstration replace it with actual data retrieval logic
+all_events = [{"id": i, "event": f"Event {i}"} for i in range(1, 101)]
+
 
 # Mock data for demonstration replace it with actual data retrieval logic
 def get_mocked_events(page_num: int, per_page: int):
