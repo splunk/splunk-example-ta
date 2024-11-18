@@ -89,7 +89,7 @@ jobs:
         with:
           name: Splunk_TA_Example
           path: output/
-      - run : tar xzf ./output/Splunk_TA_Example*.tar.gz
+      - run : tar xvzf ./output/Splunk_TA_Example*.tar.gz -C ./output/
       - run: |
           ./scripts/run_splunk.sh
           until curl -Lsk "https://localhost:8088/services/collector/health" &>/dev/null ; do echo -n "Waiting for HEC-" && sleep 5 ; done
