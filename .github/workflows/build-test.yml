@@ -84,6 +84,13 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - build
+    permissions:
+      actions: read
+      deployments: read
+      contents: read
+      packages: read
+      statuses: read
+      checks: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
