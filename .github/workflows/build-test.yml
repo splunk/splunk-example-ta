@@ -101,7 +101,7 @@ jobs:
           name: Splunk_TA_Example-raw-output
           path: psa-output/
       - name: Adjust file ownership
-        run: sudo chown -R $USER:$GROUP psa-output
+        run: sudo chown -R $USER:$USER psa-output
       - name: Give write permissions to user and group
         run: chmod -R go+w psa-output
       - name: Debug file permissions
@@ -119,7 +119,7 @@ jobs:
       - run: pip install -r requirements-dev.txt
       - name: Run PSA knowledge tests
         run :
-          sudo pytest --splunk-type=external --splunk-app=psa-output/Splunk_TA_Example --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
+          pytest --splunk-type=external --splunk-app=psa-output/Splunk_TA_Example --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
       - name: Set output if steps failed
         run: |
           echo "failed=${{ env.failed }}" >> $GITHUB_ENV
