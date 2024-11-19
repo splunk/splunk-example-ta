@@ -93,6 +93,8 @@ jobs:
         with:
           name: Splunk_TA_Example-raw-output
           path: psa-output/
+      - name: Give write permissions to user and group
+        run: chmod -R go+w psa-output
       - run: |
           ls -l psa-output/Splunk_TA_Example
           ls -l tests/knowledge
