@@ -41,8 +41,8 @@ jobs:
       # Should resolve `check_for_expansive_permissions` check from AppInspect CLI.
       - run: chmod -R +r output
         shell: bash
-      - run: chmod -R go-w output
-        shell: bash
+      # - run: chmod -R go-w output
+      #   shell: bash
       - uses: actions/upload-artifact@v4
         with:
           name: output
@@ -53,32 +53,32 @@ jobs:
           name: Splunk_TA_Example
           path: Splunk_TA_Example*.tar.gz
 
-  # splunk-appinspect-cli:
-  #   name: splunk-appinspect-cli ${{ matrix.tags }}
-  #   needs:
-  #     - build
-  #   runs-on: ubuntu-latest
-  #   continue-on-error: true
-  #   strategy:
-  #     matrix:
-  #       tags:
-  #         - "cloud"
-  #         - "appapproval"
-  #         - "deprecated_feature"
-  #         - "developer_guidance"
-  #         - "future"
-  #         - "self-service"
-  #         - "splunk_appinspect"
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         name: Splunk_TA_Example
-  #         path: build/package
-  #     - uses: splunk/appinspect-cli-action@v2.8
-  #       with:
-  #         app_path: build/package
-  #         included_tags: ${{ matrix.tags }}
+  splunk-appinspect-cli:
+    name: splunk-appinspect-cli ${{ matrix.tags }}
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      matrix:
+        tags:
+          - "cloud"
+          - "appapproval"
+          - "deprecated_feature"
+          - "developer_guidance"
+          - "future"
+          - "self-service"
+          - "splunk_appinspect"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: Splunk_TA_Example
+          path: build/package
+      - uses: splunk/appinspect-cli-action@v2.8
+        with:
+          app_path: build/package
+          included_tags: ${{ matrix.tags }}
 
   psa-test:
     runs-on: ubuntu-22.04
@@ -103,7 +103,7 @@ jobs:
       - name: Adjust file ownership
         run: sudo chown -R $USER:$GROUP psa-output
       - name: Give write permissions to user and group
-        run: chmod -R u+w psa-output
+        run: chmod -R go+w psa-output
       - name: Debug file permissions
         run: ls -lR psa-output
       - run: |
@@ -112,8 +112,11 @@ jobs:
           ./scripts/run_splunk.sh
           until curl -Lsk "https://localhost:8088/services/collector/health" &>/dev/null ; do echo -n "Waiting for HEC-" && sleep 5 ; done
         timeout-minutes: 5
-      - run:
-          pip install -r requirements-dev.txt
+      - name: Set up virtual environment
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+      - run: pip install -r requirements-dev.txt
       - name: Run PSA knowledge tests
         run :
           pytest --splunk-type=external --splunk-app=psa-output/Splunk_TA_Example --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
