@@ -100,8 +100,12 @@ jobs:
         with:
           name: Splunk_TA_Example-raw-output
           path: psa-output/
+      - name: Adjust file ownership
+        run: sudo chown -R $USER:$GROUP psa-output
       - name: Give write permissions to user and group
-        run: chmod -R go+w psa-output
+        run: chmod -R u+w psa-output
+      - name: Debug file permissions
+        run: ls -lR psa-output
       - run: |
           ls -l psa-output/Splunk_TA_Example
           ls -l tests/knowledge
