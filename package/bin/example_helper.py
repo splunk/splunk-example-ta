@@ -110,7 +110,7 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
                         sourcetype=sourcetype,
                     )
                 )
-            new_checkpoint = current_checkpoint + 1
+            new_checkpoint = int(current_checkpoint) + 1
             kvstore_checkpointer.update(checkpointer_key_name, new_checkpoint)
             log.events_ingested(
                 logger,
