@@ -98,8 +98,8 @@ jobs:
           path: psa-output/
       - run: |
           ls -l psa-output/Splunk_TA_Example
-          ls -al psa-output/bin/ || true
-          ls -al psa-output/lib/idna/ || true
+          ls -al psa-output/Splunk_TA_Example/bin/ || true
+          ls -al psa-output/Splunk_TA_Example/lib/idna/ || true
           ls -l tests/knowledge
           ./scripts/run_splunk.sh
           until curl -Lsk "https://localhost:8088/services/collector/health" &>/dev/null ; do echo -n "Waiting for HEC-" && sleep 5 ; done
