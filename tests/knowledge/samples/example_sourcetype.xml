@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<device>
+  <vendor>Splunk</vendor>
+  <product>Splunk Example TA</product>
+  <version id="0.0.1" />
+  <event code="" name="Dummy event" format="JSON">
+    <version>0.0.1</version>
+    <transport type="modinput" sourcetype="example:events" source="Example_TA" host="ip-10.202.7.251" />
+    <source>
+      <jira id="0" />
+      <comment>lab, These are sample events used to generate PSA tests</comment>
+    </source>
+    <raw><![CDATA[{"event":"Event 6","id":6}]]></raw>
+    <cim>
+      <models>
+        <model>Alerts</model>
+      </models>
+      <cim_fields>
+        <field name="app" value="sample_app" />
+        <field name="body" value="This event is for PSA test"/>
+        <field name="description" value="sample_description" />
+        <field name="dest" value="sample_dest" />
+        <field name="dest_type" value="sample_dest_type" />
+        <field name="id" value="sample_id" />
+        <field name="mitre_technique_id" value="sample_mitre_technique_id" />
+        <field name="severity" value="low" />
+        <field name="signature" value="sample_signature" />
+        <field name="signature_id" value="sample_signature_id" />
+        <field name="src" value="sample_src" />
+        <field name="src_type" value="sample_src_type" />
+        <field name="type" value="alert" />
+        <field name="user" value="sample_user" />
+        <field name="user_name" value="sample_user_name" />
+        <field name="vendor_account" value="sample_vendor_account" />
+        <field name="vendor_region" value="sample_vendor_region" />
+      </cim_fields>
+      <missing_recommended_fields />
+    </cim>
+  </event>
+</device>
