@@ -1,7 +1,10 @@
-cd ../
+SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
+REPO_ROOT_DIR=$(cd "$SCRIPT_DIR/.." && pwd)
+
 docker compose down
 python3 -m venv .venv
 source .venv/bin/activate
+cd $REPO_ROOT_DIR
 pip install -r requirements-dev.txt
 ucc-gen build
 # running on ARM macOS

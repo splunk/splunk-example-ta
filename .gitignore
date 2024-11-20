@@ -1,5 +1,10 @@
 .idea
-.venv
+.venv*
 output
 .DS_Store
 __pycache__
+*.log
+# PSA files on local execution
+events.pickle
+generator.lock
+.tokenized_events
