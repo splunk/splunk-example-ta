@@ -39,10 +39,6 @@ jobs:
           path: output/*
       # Taken from https://github.com/splunk/addonfactory-ucc-generator-action/blob/main/action.yml.
       # Should resolve `check_for_expansive_permissions` check from AppInspect CLI.
-      - run: chmod -R +r output
-        shell: bash
-      - run: chmod -R go-w output
-        shell: bash
       - uses: actions/upload-artifact@v4
         with:
           name: output
@@ -100,15 +96,10 @@ jobs:
         with:
           name: Splunk_TA_Example-raw-output
           path: psa-output/
-      - name: Adjust file ownership
-        run: sudo chown -R $USER:$GROUP psa-output
-      - name: Give write permissions to user and group
-        run: chmod -R go+w psa-output
-      - name: Debug file permissions
-        run: ls -lR psa-output
       - run: |
           ls -l psa-output/Splunk_TA_Example
-          ls -al psa-output/bin/
+          ls -al psa-output/bin/ || true
+          ls -al psa-output/lib/idna/ || true
           ls -l tests/knowledge
           ./scripts/run_splunk.sh
           until curl -Lsk "https://localhost:8088/services/collector/health" &>/dev/null ; do echo -n "Waiting for HEC-" && sleep 5 ; done
