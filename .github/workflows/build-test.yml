@@ -108,6 +108,7 @@ jobs:
         run: ls -lR psa-output
       - run: |
           ls -l psa-output/Splunk_TA_Example
+          ls -al psa-output/bin/
           ls -l tests/knowledge
           ./scripts/run_splunk.sh
           until curl -Lsk "https://localhost:8088/services/collector/health" &>/dev/null ; do echo -n "Waiting for HEC-" && sleep 5 ; done
@@ -116,7 +117,7 @@ jobs:
         run: |
           python3 -m venv .venv
           source .venv/bin/activate
-      - run: pip install -r requirements-dev.txt
+      - run: pip install --no-cache-dir -r requirements-dev.txt
       - name: Run PSA knowledge tests
         run : |
           rm -rf psa-output/*
