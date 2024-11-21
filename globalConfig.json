@@ -113,6 +113,24 @@
                             "help": "Account to use for this input.",
                             "field": "account",
                             "required": true
+                        },
+                        {
+                            "type": "text",
+                            "label": "Fetch from Page",
+                            "defaultValue": "0",
+                            "field": "fetch_from",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        0,
+                                        10000
+                                    ],
+                                    "isInteger": true
+                                }
+                            ],
+                            "help": "Page to fetch the data from. Default: 0.",
+                            "required": false
                         }
                     ],
                     "inputHelperModule": "example_helper",
@@ -180,6 +198,7 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
+
         "version": "0.0.1+6c22cac",
         "displayName": "Splunk Add-on for Example",
         "schemaVersion": "0.0.9",
