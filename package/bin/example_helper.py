@@ -37,7 +37,7 @@ def get_data_from_api(
 
     def _call_api():
         response = requests.get(
-            "http://server:5000/events",
+            "http://server:5001/events",
             headers={
                 "API-Key": api_key,
             },
