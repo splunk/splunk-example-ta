@@ -198,13 +198,14 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
-        "version": "0.0.1+74cc0f8",
+
+        "version": "0.0.1+6c22cac",
         "displayName": "Splunk Add-on for Example",
         "schemaVersion": "0.0.9",
         "supportedThemes": [
             "light",
             "dark"
         ],
-        "_uccVersion": "5.53.0"
+        "_uccVersion": "5.53.1"
     }
 }
