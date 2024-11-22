@@ -19,8 +19,7 @@ ucc-gen package --path output/Splunk_TA_Example
 ## Build and run Splunk and `server`
 
 ```bash
-cd scripts
-./run_locally.sh
+./scripts/run_locally.sh
 ```
 
 ## Notable PRs
