@@ -84,7 +84,6 @@ export default {
       ? "[name].[id].js?[chunkhash]"
       : "[name].[id].[chunkhash].js",
     library: {
-      // name: "[name]",
       type: "module",
     },
   },
@@ -95,13 +94,6 @@ export default {
         use: [
           {
             loader: "babel-loader",
-            // options: {
-            //   presets: [
-            //     "@babel/preset-env",
-            //     "@babel/preset-react",
-            //     "@babel/preset-typescript",
-            //   ],
-            // },
           },
         ],
         exclude: /node_modules/,

@@ -64,10 +64,6 @@
                     "name": "example",
                     "restHandlerModule": "example_delete_checkpoint_rh",
                     "restHandlerClass": "DeleteCheckpointRestHandler",
-                    "hook": {
-                        "src": "Hook",
-                        "type": "external"
-                    },
                     "entity": [
                         {
                             "type": "text",
