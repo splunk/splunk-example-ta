@@ -13,6 +13,7 @@
     "format:verify": "prettier \"src/**/*.(js|jsx|ts|tsx|css)\" --list-different"
   },
   "dependencies": {
+    "@splunk/react-ui": "^4.39.0",
     "es-toolkit": "^1.27.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"

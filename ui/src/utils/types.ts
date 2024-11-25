@@ -48,3 +48,9 @@ export interface UtilBaseForm {
   clearAllErrorMsg: (State: BaseFormState) => unknown;
   setErrorMsg: (msg: string) => void;
 }
+
+export interface ControlData {
+  value: AcceptableFormValueOrNullish;
+  mode: Mode;
+  serviceName: string;
+}

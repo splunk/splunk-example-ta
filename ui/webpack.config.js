@@ -8,18 +8,14 @@ import { invariant } from "es-toolkit";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const DEBUG = process.env.NODE_ENV !== "production";
 
 const proxyTargetUrl = "http://localhost:8000";
 
 const jsAssetsRegex = /.+\/app\/.+\/js\/build\/custom(\/.+(js(.map)?))/;
 
 function isItStaticAsset(url) {
-  const isItAsset = jsAssetsRegex.test(url);
-  if (isItAsset) {
-    const isItCustomJs = url.includes("js/build/custom");
-    return !isItCustomJs;
-  }
-  return isItAsset;
+  return jsAssetsRegex.test(url);
 }
 
 const entryDir = join(__dirname, "src/ucc-ui-extensions");
@@ -74,13 +70,23 @@ const outputPath = path.resolve(
 );
 
 export default {
+  mode: DEBUG ? "development" : "production",
   entry: entry,
   output: {
     path: outputPath,
     filename: (pathData) =>
-      pathData.chunk.name in entry ? "[name].js" : "[name].[contenthash].js",
-    chunkFilename: "[name].[contenthash].js",
-    library: "[name]",
+      pathData.chunk.name in entry
+        ? "[name].js"
+        : DEBUG
+          ? "[name].js?[hash]"
+          : "[name].[contenthash].js",
+    chunkFilename: DEBUG
+      ? "[name].[id].js?[chunkhash]"
+      : "[name].[id].[chunkhash].js",
+    library: {
+      // name: "[name]",
+      type: "module",
+    },
   },
   module: {
     rules: [
@@ -131,5 +137,8 @@ export default {
 
       return middlewares;
     },
+  },
+  experiments: {
+    outputModule: true,
   },
 };
