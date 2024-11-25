@@ -13,4 +13,3 @@ ucc-gen build
 # running on ARM macOS
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 docker compose up -d --build --wait
-
