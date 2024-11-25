@@ -8,4 +8,3 @@ __pycache__
 events.pickle
 generator.lock
 .tokenized_events
-
