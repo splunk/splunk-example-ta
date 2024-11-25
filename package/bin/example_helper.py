@@ -13,6 +13,8 @@ from solnlib import conf_manager, log
 from solnlib.modular_input import checkpointer
 from splunklib import modularinput as smi
 
+PAGE_SIZE = 100
+
 
 def logger_for_input(input_name: str) -> logging.Logger:
     return log.Logs().get_logger(f"{example_utils.ADDON_NAME.lower()}_{input_name}")
@@ -29,26 +31,26 @@ def get_account_api_key(session_key: str, account_name: str):
 
 
 def get_data_from_api(
-    logger: logging.Logger, api_key: str, checkpoint: Optional[str] = None
+    logger: logging.Logger, api_key: str, page_number: Optional[int] = 0
 ):
-    # So far not used.
-    del checkpoint
-    logger.info("Getting data from an external API")
+    logger.info("Getting data from an external API == ", page_number)
 
-    def _call_api():
+    def _call_api(page_number: int):
+        parameters = {"page": page_number, "per_page": PAGE_SIZE}
         response = requests.get(
-            "http://server:5000/events",
+            "http://localhost:5000/events",
             headers={
                 "API-Key": api_key,
             },
             timeout=20,
+            params=parameters,
         )
         response.raise_for_status()
         return response.json()
 
-    for i in range(3):
+    for _ in range(3):
         try:
-            return _call_api()
+            return _call_api(page_number)
         except requests.exceptions.HTTPError:
             logger.warning("Failed to get data from the API, retrying...")
     raise Exception("Failed to get data from the API")
@@ -92,10 +94,15 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
             checkpointer_key_name = example_utils.get_example_collection_key_name(
                 input_name
             )
-            current_checkpoint = kvstore_checkpointer.get(checkpointer_key_name)
+            # if we don't have any checkpoint, we default it to 0
+            current_checkpoint = (
+                kvstore_checkpointer.get(checkpointer_key_name)
+                or input_item.get("fetch_from")
+                or 0
+            )
             data = get_data_from_api(logger, api_key, current_checkpoint)
             sourcetype = "example:events"
-            for line in data:
+            for line in data["events"]:
                 event_writer.write_event(
                     smi.Event(
                         data=json.dumps(line, ensure_ascii=False, default=str),
@@ -103,9 +110,7 @@ def stream_events(inputs: smi.InputDefinition, event_writer: smi.EventWriter):
                         sourcetype=sourcetype,
                     )
                 )
-            new_checkpoint = (
-                datetime.datetime.utcnow().replace(tzinfo=timezone.utc).timestamp()
-            )
+            new_checkpoint = int(current_checkpoint) + 1
             kvstore_checkpointer.update(checkpointer_key_name, new_checkpoint)
             log.events_ingested(
                 logger,
