@@ -4,7 +4,6 @@ output
 .DS_Store
 __pycache__
 *.log
-node_modules
 # PSA files on local execution
 events.pickle
 generator.lock

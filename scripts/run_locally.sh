@@ -2,7 +2,6 @@
 set -e
 # Determine the directory of the script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-UI_DIR="$SCRIPT_DIR/../ui"
 
 cd "$SCRIPT_DIR"/..
 echo "🛑 Stopping any running Docker containers"
@@ -15,10 +14,9 @@ pip install -r requirements-dev.txt
 echo "🏗 Building the project with ucc-gen"
 ucc-gen build
 
-echo "📦 Installing npm dependencies"
-npm --prefix "$UI_DIR" install
-echo "🔧 Building UI assets"
-npm --prefix "$UI_DIR" run build
+echo "📦 Installing npm dependencies and building UI assets"
+chmod +x "$SCRIPT_DIR"/build_ui.sh
+"$SCRIPT_DIR"/build_ui.sh
 
 # running on ARM macOS
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
