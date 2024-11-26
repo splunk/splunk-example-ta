@@ -37,6 +37,14 @@ export default class DateInputClass {
   };
 
   render() {
-    ReactDOM.render(<DateInput onChange={this.onDateChange} />, this.el);
+    const dateValue = this.data.value;
+    const date =
+      typeof dateValue === "string" && dateValue.length !== 0
+        ? dateValue
+        : undefined;
+    ReactDOM.render(
+      <DateInput value={date} onChange={this.onDateChange} />,
+      this.el,
+    );
   }
 }
