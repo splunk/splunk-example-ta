@@ -2,6 +2,11 @@
 
 This is an example TA for Splunk that demonstrates how to use the modular input framework to collect data from an API and send it to Splunk.
 
+## Frameworks and tools used
+
+* UCC - https://github.com/splunk/addonfactory-ucc-generator
+* PSA - https://github.com/splunk/pytest-splunk-addon
+
 ## API
 
 The API is a simple Flask app that returns a list of events.
