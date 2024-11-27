@@ -18,7 +18,6 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
 ucc-gen build
-./scripts/build_ui.sh
 ucc-gen package --path output/Splunk_TA_Example
 ```
 
