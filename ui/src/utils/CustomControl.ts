@@ -10,8 +10,6 @@ export type AcceptableFormValueOrNullish =
   | AcceptableFormValueOrNull
   | undefined;
 
-export type AcceptableFormRecord = Record<string, AcceptableFormValueOrNull>;
-
 export type StandardPages = "configuration" | "inputs";
 
 export interface BaseFormStateData {
@@ -53,4 +51,20 @@ export interface ControlData {
   value: AcceptableFormValueOrNullish;
   mode: Mode;
   serviceName: string;
+}
+
+type ValueSetter = (newValue: AcceptableFormValueOrNullish) => void;
+
+export abstract class CustomControlBase {
+  protected constructor(
+    public globalConfig: object,
+    public el: HTMLElement,
+    public data: ControlData,
+    public setValue: ValueSetter,
+    public util: UtilBaseForm,
+  ) {}
+
+  render?(): void;
+
+  validation?(field: string, value: ControlData["value"]): string | undefined;
 }
