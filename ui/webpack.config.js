@@ -36,7 +36,7 @@ function getAllIndexFiles(dir) {
     const stat = statSync(filePath);
     if (stat && stat.isDirectory()) {
       results = results.concat(getAllIndexFiles(filePath));
-    } else if (file === "index.ts") {
+    } else if (file === "index.ts" || file === "index.tsx") {
       results.push(filePath);
     }
   });

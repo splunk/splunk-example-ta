@@ -56,13 +56,25 @@ export interface ControlData {
 type ValueSetter = (newValue: AcceptableFormValueOrNullish) => void;
 
 export abstract class CustomControlBase {
+  public globalConfig: object;
+  public el: HTMLElement;
+  public data: ControlData;
+  public setValue: ValueSetter;
+  public util: UtilBaseForm;
+
   protected constructor(
-    public globalConfig: object,
-    public el: HTMLElement,
-    public data: ControlData,
-    public setValue: ValueSetter,
-    public util: UtilBaseForm,
-  ) {}
+    globalConfig: object,
+    el: HTMLElement,
+    data: ControlData,
+    setValue: ValueSetter,
+    util: UtilBaseForm,
+  ) {
+    this.globalConfig = globalConfig;
+    this.el = el;
+    this.data = data;
+    this.setValue = setValue;
+    this.util = util;
+  }
 
   render?(): void;
 
