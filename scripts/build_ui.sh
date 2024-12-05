@@ -10,6 +10,10 @@ then
     exit 1
 fi
 
-# Run npm install and npm build in the ui/ directory
-npm --prefix "$SCRIPT_DIR/../ui" install
+if [ "$CI" = "true" ]; then
+    npm --prefix "$SCRIPT_DIR/../ui" ci
+else
+    npm --prefix "$SCRIPT_DIR/../ui" install
+fi
+
 npm --prefix "$SCRIPT_DIR/../ui" run build
