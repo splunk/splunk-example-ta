@@ -53,6 +53,25 @@ jobs:
           name: Splunk_TA_Example
           path: Splunk_TA_Example*.tar.gz
 
+  ui-checks:
+    defaults:
+      run:
+        shell: bash
+        working-directory: ui
+    steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-node@v4
+          with:
+            cache: 'npm'
+            cache-dependency-path: 'ui/package-lock.lock'
+            node-version-file: 'ui/package.json'
+        - name: Install Dependencies
+          run: npm ci
+        - name: Code lint
+          run: npm run lint
+        - name: Unit tests
+          run: npm run test
+
   splunk-appinspect-cli:
     name: splunk-appinspect-cli ${{ matrix.tags }}
     needs:
