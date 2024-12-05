@@ -1,5 +1,4 @@
-/* eslint-env node */
-export default {
+module.exports = {
   presets: [
     [
       "@splunk/babel-preset",
