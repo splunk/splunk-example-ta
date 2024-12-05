@@ -1,3 +1,4 @@
+import { app } from "@splunk/splunk-utils/config";
 import { getDefaultFetchInit } from "@splunk/splunk-utils/fetch";
 import { createRESTURL } from "@splunk/splunk-utils/url";
 import { ResponseError } from "./ResponseError";
@@ -14,7 +15,10 @@ export interface RequestParams {
 const DEFAULT_PARAMS = { output_mode: "json" };
 
 function createUrl(endpointUrl: string, params: ParamsRecord): URL {
-  const url = new URL(createRESTURL(endpointUrl), window.location.origin);
+  const url = new URL(
+    createRESTURL(endpointUrl, { app }),
+    window.location.origin,
+  );
   Object.entries({ ...DEFAULT_PARAMS, ...params })
     .filter(([, value]) => value !== undefined && value !== null)
     .forEach(([key, value]) => url.searchParams.append(key, value.toString()));

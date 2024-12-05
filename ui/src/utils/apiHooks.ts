@@ -32,7 +32,6 @@ const cache = new Map<string, RequestParams>();
 export function useGetRequest<TData>(params: RequestParams) {
   const [data, setData] = useState<TData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   // params is a new object on every render
@@ -51,7 +50,6 @@ export function useGetRequest<TData>(params: RequestParams) {
       .then((data) => {
         if (isMounted) {
           setData(data);
-          setIsLoaded(true);
           setIsLoading(false);
         }
       })
@@ -68,5 +66,5 @@ export function useGetRequest<TData>(params: RequestParams) {
     };
   }, [cachedParams]);
 
-  return { data, isLoading, isLoaded, error };
+  return { data, isLoading, error };
 }

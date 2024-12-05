@@ -1,8 +1,9 @@
 import React from "react";
 import Table from "@splunk/react-ui/Table";
-
+import { app } from "@splunk/splunk-utils/config";
 import { SplunkThemeProvider, variables } from "@splunk/themes";
 import styled from "styled-components";
+
 import { useGetRequest } from "../../utils/apiHooks.ts";
 
 const HostStyles = styled.div`
@@ -23,15 +24,16 @@ interface InputResponse {
 }
 
 export function AdvancedInputsTab() {
-  const { data, isLoaded } = useGetRequest<InputResponse>({
-    endpointUrl: "Splunk_TA_Example_example",
+  const inputType = "example";
+  const { data } = useGetRequest<InputResponse>({
+    endpointUrl: `${app}_${inputType}`,
   });
   const inputs = data?.entry;
 
   return (
     <SplunkThemeProvider>
       <HostStyles>
-        {isLoaded && (
+        {data && (
           <Table>
             <Table.Head>
               <Table.HeadCell>Name</Table.HeadCell>
