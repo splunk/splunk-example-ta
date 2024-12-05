@@ -54,6 +54,7 @@ jobs:
           path: Splunk_TA_Example*.tar.gz
 
   ui-checks:
+    runs-on: ubuntu-22.04
     defaults:
       run:
         shell: bash
