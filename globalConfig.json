@@ -53,6 +53,15 @@
                 },
                 {
                     "type": "loggingTab"
+                },
+                {
+                    "name": "advanced_inputs",
+                    "title": "Advanced Inputs",
+                    "customTab": {
+                        "src": "AdvancedInputsTab",
+                        "type": "external"
+                    },
+                    "entity": []
                 }
             ],
             "title": "Configuration",
