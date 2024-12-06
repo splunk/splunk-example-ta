@@ -5,6 +5,7 @@ import { SplunkThemeProvider, variables } from "@splunk/themes";
 import styled from "styled-components";
 
 import { useGetRequest } from "../../utils/apiHooks.ts";
+import Message from "@splunk/react-ui/Message";
 
 const HostStyles = styled.div`
   padding: ${variables.spacingLarge} 0;
@@ -25,7 +26,7 @@ interface InputResponse {
 
 export function AdvancedInputsTab() {
   const inputType = "example";
-  const { data } = useGetRequest<InputResponse>({
+  const { data, error } = useGetRequest<InputResponse>({
     endpointUrl: `${app}_${inputType}`,
   });
   const inputs = data?.entry;
@@ -33,6 +34,7 @@ export function AdvancedInputsTab() {
   return (
     <SplunkThemeProvider>
       <HostStyles>
+        {error && <Message type="error">{error.message}</Message>}
         {data && (
           <Table>
             <Table.Head>

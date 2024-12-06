@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/jest-globals";
+import "./mocks/server";
 
 import { configure } from "@testing-library/react";
 
