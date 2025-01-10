@@ -52,6 +52,13 @@
                     "title": "Accounts"
                 },
                 {
+                    "type": "proxyTab",
+                    "proxy_type": true,
+                    "username": true,
+                    "password": true,
+                    "dns_resolution": true
+                },
+                {
                     "type": "loggingTab"
                 },
                 {
@@ -216,13 +223,12 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
-        "version": "0.0.1+6c22cac",
+        "version": "5.56.0+615cb07a8",
         "displayName": "Splunk Add-on for Example",
         "schemaVersion": "0.0.9",
         "supportedThemes": [
             "light",
             "dark"
-        ],
-        "_uccVersion": "5.53.1"
+        ]
     }
 }
