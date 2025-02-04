@@ -38,7 +38,7 @@ def get_data_from_api(
     def _call_api(page_number: int):
         parameters = {"page": page_number, "per_page": PAGE_SIZE}
         response = requests.get(
-            "http://localhost:5000/events",
+            "http://server-example-ta:5000/events",
             headers={
                 "API-Key": api_key,
             },
