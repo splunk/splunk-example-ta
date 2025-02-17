@@ -44,7 +44,7 @@
                             "type": "text",
                             "label": "API key",
                             "field": "api_key",
-                            "help": "API key",
+                            "help": "API key that is validated by the server (it is 'super-secret-api-token', but don't tell anyone).",
                             "required": true,
                             "encrypted": true
                         }
@@ -223,7 +223,7 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
-        "version": "5.56.0+615cb07a8",
+        "version": "0.0.1+cbf8f61",
         "displayName": "Splunk Add-on for Example",
         "schemaVersion": "0.0.9",
         "supportedThemes": [
