@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { CustomControlBase } from "../../utils/CustomControl.ts";
-import DateInput from "./DateInput";
+import { CustomControlBase } from "@splunk/add-on-ucc-framework";
 
+import DateInput from "./DateInput";
 import { DateChangeHandler } from "@splunk/react-ui/Date";
 
 export default class DateInputClass extends CustomControlBase {
