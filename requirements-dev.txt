@@ -1,2 +1,2 @@
 pytest-splunk-addon==5.4.1
-splunk-add-on-ucc-framework==5.57.2
+splunk-add-on-ucc-framework==5.58.0
