@@ -11,6 +11,13 @@ This is an example TA for Splunk that demonstrates how to use the modular input 
 
 The API is a simple Flask app that returns a list of events.
 
+## Quick start locally with Docker
+
+```bash
+./scripts/run_locally.sh
+```
+
+
 ## Build and package TA
 
 ```bash
@@ -19,12 +26,6 @@ source .venv/bin/activate
 pip install -r requirements-dev.txt
 ucc-gen build
 ucc-gen package --path output/Splunk_TA_Example
-```
-
-## Build and run Splunk and `server`
-
-```bash
-./scripts/run_locally.sh
 ```
 
 ## Notable PRs
