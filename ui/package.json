@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "webpack serve",
-    "build": "cross-env NODE_ENV=production webpack --bail",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build",
     "build:watch": "webpack --watch",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -15,7 +15,7 @@
     "format:verify": "prettier \"src/**/*.(js|jsx|ts|tsx|css)\" --list-different"
   },
   "dependencies": {
-    "@splunk/add-on-ucc-framework": "^5.58.0",
+    "@splunk/add-on-ucc-framework": "^5.58.2-30",
     "@splunk/react-ui": "^4.42.0",
     "@splunk/splunk-utils": "^3.1.0",
     "@splunk/themes": "^0.23.0",
@@ -33,6 +33,8 @@
     "@babel/preset-typescript": "^7.26.0",
     "@eslint/js": "^9.20.0",
     "@jest/globals": "^29.7.0",
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
+    "@rollup/plugin-commonjs": "^28.0.2",
     "@splunk/babel-preset": "^4.0.0",
     "@splunk/webpack-configs": "^7.0.2",
     "@testing-library/dom": "^8.20.1",
@@ -44,8 +46,10 @@
     "@types/react": "16.14.62",
     "@types/react-dom": "16.9.25",
     "@types/styled-components": "^5.1.34",
+    "@vitejs/plugin-react": "^4.3.4",
     "babel-jest": "^29.7.0",
     "cross-env": "^7.0.3",
+    "esbuild-loader": "^4.3.0",
     "eslint": "^9.19.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.18",
@@ -59,6 +63,8 @@
     "ts-node": "^10.9.2",
     "typescript": "~5.7.3",
     "typescript-eslint": "^8.24.1",
+    "vite": "^6.2.0",
+    "vite-plugin-checker": "^0.9.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.2.0"
   },
