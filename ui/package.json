@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "webpack serve",
+    "dev": "cross-env NODE_OPTIONS=--max-old-space-size=8192 vite",
     "build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 vite build",
     "build:watch": "webpack --watch",
     "test": "jest",
@@ -33,7 +33,6 @@
     "@babel/preset-typescript": "^7.26.0",
     "@eslint/js": "^9.20.0",
     "@jest/globals": "^29.7.0",
-    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@splunk/babel-preset": "^4.0.0",
     "@splunk/webpack-configs": "^7.0.2",

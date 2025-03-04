@@ -5,9 +5,6 @@ import { fileURLToPath } from "url";
 import { readdirSync, statSync, globSync, unlinkSync } from "fs";
 import react from "@vitejs/plugin-react";
 import checker from "vite-plugin-checker";
-import { viteCommonjs } from "@originjs/vite-plugin-commonjs";
-import commonjs from "@rollup/plugin-commonjs";
-import styledComponentBabelPlugin from "./styled-component-babel-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -71,29 +68,10 @@ const outputDir = resolve(
 );
 
 export default defineConfig({
-  optimizeDeps: {
-    include: [
-      "styled-components",
-      "@splunk/react-ui",
-      "@splunk/themes",
-      "@splunk/react-page",
-    ],
-    esbuildOptions: {
-      resolveExtensions: [".js", ".jsx", ".ts", ".tsx"],
-      define: {
-        global: "globalThis",
-      },
-    },
-  },
   build: {
     outDir: outputDir,
     sourcemap: false,
-    minify: false,
-    commonjsOptions: {
-      include: /node_modules/,
-      transformMixedEsModules: true,
-      requireReturnsDefault: "auto",
-    },
+    assetsDir: "",
     rollupOptions: {
       input,
       output: {
@@ -108,31 +86,16 @@ export default defineConfig({
               ? "[name].js"
               : "[name].[hash].js";
         },
-        // https://github.com/styled-components/styled-components/issues/3700
-        interop: "compat",
       },
     },
   },
+  logLevel: "info",
   plugins: [
-    react({
-      babel: {
-        plugins: [
-          [
-            "babel-plugin-styled-components",
-            {
-              displayName: true,
-              ssr: false,
-            },
-          ],
-        ],
-      },
-    }),
+    react(),
     checker({
       typescript: true,
     }),
-    // commonjs({
-    //   // include: /node_modules/,
-    // }),
+    // Custom plugin to handle URL rewriting (equivalent to setupMiddlewares)
     {
       name: "clean-specific-files",
       buildStart: async () => {
@@ -153,7 +116,6 @@ export default defineConfig({
         });
       },
     },
-    // Custom plugin to handle URL rewriting (equivalent to setupMiddlewares)
     {
       name: "url-rewrite-middleware",
       configureServer(server) {
@@ -183,20 +145,7 @@ export default defineConfig({
     },
   },
   resolve: {
-    // alias: {
-    //   "styled-components": "src/styled-components-shim.js",
-    // },
     extensions: [".tsx", ".ts", ".js"],
   },
-  experimental: {
-    // building dynamic public path for making assets preload work correctly
-    renderBuiltUrl(filename, { type }) {
-      if (type === "asset") {
-        // it should match with the variable set in base.html
-        return {
-          runtime: `window.__webpack_public_path__ + ${JSON.stringify("assets/" + filename)}`,
-        };
-      }
-    },
-  },
+  base: "",
 });

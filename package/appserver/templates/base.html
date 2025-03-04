@@ -35,11 +35,6 @@
 
 <% page_path = "/static/app/" + app_name + "/js/build/entry_page.js" %>
 
-<!-- it is used in vite.config.ts to build a dynamic publicPath -->
-<script>
-    __webpack_public_path__ = ${make_url("/static/app/" + app_name + "/js/build/")};
-</script>
-
 <script type="module" src="${make_url(page_path)}"></script>
 </body>
 </html>
