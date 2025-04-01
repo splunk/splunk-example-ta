@@ -2,9 +2,11 @@
 import { defineConfig } from "vite";
 import { dirname, join, relative, resolve } from "path";
 import { fileURLToPath } from "url";
-import { readdirSync, statSync, globSync, unlinkSync } from "fs";
+import { readdirSync, statSync, unlinkSync } from "fs";
 import react from "@vitejs/plugin-react";
 import checker from "vite-plugin-checker";
+import { globSync  } from 'glob'
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -72,6 +74,7 @@ export default defineConfig({
     outDir: outputDir,
     sourcemap: false,
     assetsDir: "",
+    minify: false, // to be removed befire release
     rollupOptions: {
       input,
       output: {
