@@ -1,6 +1,10 @@
 import { init } from "@splunk/add-on-ucc-framework";
-import DateInput from "./ucc-ui-extensions/DateInput/DateInput";
+import DateInputClass from "./ucc-ui-extensions/DateInput";
+import AdvancedInputsTabClass from "./ucc-ui-extensions/AdvancedInputsTab";
 
-init(DateInput).catch((error) => {
+init({
+  DateInput: DateInputClass,
+  AdvancedInputsTab: AdvancedInputsTabClass,
+}).catch((error) => {
   console.error("Could not load UCC", error);
 });
