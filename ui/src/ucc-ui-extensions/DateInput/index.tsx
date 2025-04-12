@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { CustomControlBase } from "@splunk/add-on-ucc-framework";
-
 import { DateChangeHandler } from "@splunk/react-ui/Date";
 
 const CustomDateInput = React.lazy(() => import("./DateInput"));
