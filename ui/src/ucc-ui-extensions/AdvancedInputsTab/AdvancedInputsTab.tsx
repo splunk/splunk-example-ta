@@ -57,3 +57,5 @@ export function AdvancedInputsTab() {
     </SplunkThemeProvider>
   );
 }
+
+export default AdvancedInputsTab;
