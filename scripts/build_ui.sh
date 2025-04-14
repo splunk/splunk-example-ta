@@ -16,4 +16,4 @@ else
     npm --prefix "$SCRIPT_DIR/../ui" install
 fi
 
-npm --prefix "$SCRIPT_DIR/../ui" run ucc-gen
+npm --prefix "$SCRIPT_DIR/../ui" run ucc-gen output=$(pwd)
