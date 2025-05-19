@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "ucc-gen": "ucc-gen-ui",
+    "ucc-gen": "ucc-gen-ui ta_name=Splunk_TA_Example init_file_dir=src/ucc-ui.ts",
     "build:watch": "webpack --watch",
     "test": "jest",
     "test:watch": "jest --watch",

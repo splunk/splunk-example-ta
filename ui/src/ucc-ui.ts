@@ -1,8 +1,8 @@
-import { init } from "@splunk/add-on-ucc-framework";
+import { uccInit } from "@splunk/add-on-ucc-framework";
 import DateInputClass from "./ucc-ui-extensions/DateInput";
 import AdvancedInputsTabClass from "./ucc-ui-extensions/AdvancedInputsTab";
 
-init({
+uccInit({
   DateInput: {
     component: DateInputClass,
     type: 'control',
