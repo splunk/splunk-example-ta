@@ -1,5 +1,6 @@
 import os
 from os import path
+import shutil
 
 
 def additional_packaging(addon_name: str) -> None:
@@ -16,3 +17,8 @@ def additional_packaging(addon_name: str) -> None:
         return_code = os.system(build_ui_script)
         if return_code != 0:
             os._exit(os.WEXITSTATUS(return_code))
+
+    lib_dir = f"output/{addon_name}/appserver/static/js/lib"
+    print(f"Removing {lib_dir}", path.exists(lib_dir), path.isdir(lib_dir))
+    if path.exists(lib_dir) and path.isdir(lib_dir):
+        shutil.rmtree(lib_dir)
