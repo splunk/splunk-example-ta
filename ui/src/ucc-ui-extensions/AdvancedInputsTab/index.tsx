@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { CustomTabBase } from "@splunk/add-on-ucc-framework";
 
 const CustomAdvancedInputsTab = React.lazy(
-  () => import("./AdvancedInputsTab.tsx")
+  () => import("./AdvancedInputsTab.tsx"),
 );
 
 export default class AdvancedInputsTabClass extends CustomTabBase {
@@ -13,7 +13,7 @@ export default class AdvancedInputsTabClass extends CustomTabBase {
       <React.Suspense fallback={<div></div>}>
         <CustomAdvancedInputsTab />
       </React.Suspense>,
-      this.el
+      this.el,
     );
   }
 }

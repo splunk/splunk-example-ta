@@ -5,11 +5,11 @@ import AdvancedInputsTabClass from "./ucc-ui-extensions/AdvancedInputsTab";
 uccInit({
   DateInput: {
     component: DateInputClass,
-    type: 'control',
+    type: "control",
   },
   AdvancedInputsTab: {
     component: AdvancedInputsTabClass,
-    type: 'tab',
+    type: "tab",
   },
 }).catch((error) => {
   console.error("Could not load UCC", error);

@@ -2,6 +2,7 @@ import os
 from os import path
 import shutil
 
+
 def additional_packaging(addon_name: str) -> None:
     # It fixes https://github.com/splunk/splunk-example-ta/actions/runs/11767701819/job/32776693866?pr=2.
     file_to_remove = f"output/{addon_name}/lib/__pycache__/socks.cpython-37.pyc"
@@ -16,7 +17,7 @@ def additional_packaging(addon_name: str) -> None:
         return_code = os.system(build_ui_script)
         if return_code != 0:
             os._exit(os.WEXITSTATUS(return_code))
-            
+
     lib_dir = f"output/{addon_name}/appserver/static/js/lib"
     print(f"Removing {lib_dir}", path.exists(lib_dir), path.isdir(lib_dir))
     if path.exists(lib_dir) and path.isdir(lib_dir):

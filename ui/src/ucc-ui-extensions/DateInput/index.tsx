@@ -20,7 +20,7 @@ export default class DateInputClass extends CustomControlBase {
       <React.Suspense fallback={<div></div>}>
         <CustomDateInput value={date} onChange={this.onDateChange} />
       </React.Suspense>,
-      this.el
+      this.el,
     );
   }
 }
