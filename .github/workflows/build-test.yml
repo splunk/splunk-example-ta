@@ -104,7 +104,11 @@ jobs:
         with:
           app_path: build/package
           included_tags: ${{ matrix.tags }}
-
+      - name: upload-manual-check-appinspect
+        uses: actions/upload-artifact@v2
+        with:
+          name: appinspect_result.json
+          path: appinspect_result.json
   psa-test:
     runs-on: ubuntu-22.04
     needs:
