@@ -1,2 +1,3 @@
 pytest-splunk-addon==5.4.1
 splunk-add-on-ucc-framework==5.58.0
+splunk-add-on-ucc-modinput-test==1.0.0

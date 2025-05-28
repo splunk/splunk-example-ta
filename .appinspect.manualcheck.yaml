@@ -50,3 +50,7 @@ check_dependencies:
   comment: 'done'
 check_hard_coded_paths:
   comment: 'done'
+check_for_insecure_http_calls_in_python:
+  comment: 'done'
+check_for_supported_tls:
+  comment: 'done'
