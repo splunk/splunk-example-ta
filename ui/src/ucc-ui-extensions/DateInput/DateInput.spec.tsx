@@ -1,11 +1,13 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import { vi } from "vitest";
+
 import DateInput from "./DateInput";
 
 describe("DateInput", () => {
   it("renders with default value and handles date change", async () => {
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
     const user = userEvent.setup();
 
     const { getByRole } = render(<DateInput onChange={handleChange} />);

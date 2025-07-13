@@ -1,11 +1,13 @@
 import { screen, render } from "@testing-library/react";
 import React from "react";
+import { vi, expect } from "vitest";
+
 import { AdvancedInputsTab } from "./AdvancedInputsTab.tsx";
 import { server } from "../../../tests/mocks/server.ts";
 import { http, HttpResponse } from "msw";
 
-jest.mock("@splunk/splunk-utils/config", () => ({
-  ...jest.requireActual("@splunk/splunk-utils/config"),
+vi.mock("@splunk/splunk-utils/config", async () => ({
+  ...(await vi.importActual("@splunk/splunk-utils/config")),
   app: "test_app",
 }));
 
