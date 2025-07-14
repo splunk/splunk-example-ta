@@ -1,6 +1,6 @@
 import { screen, render } from "@testing-library/react";
 import React from "react";
-import { vi, expect } from "vitest";
+import { vi, expect, describe, it } from "vitest";
 
 import { AdvancedInputsTab } from "./AdvancedInputsTab.tsx";
 import { server } from "../../../tests/mocks/server.ts";
@@ -19,7 +19,7 @@ function mockResponse(errorResponse: Response) {
   server.use(
     http.get(`/servicesNS/-/test_app/test_app_example`, () => {
       return errorResponse;
-    }),
+    })
   );
 }
 
@@ -51,7 +51,7 @@ describe("AdvancedInputsTab", () => {
     const serverErrorMessage = "Internal error";
     const errorResponse = HttpResponse.json(
       { message: serverErrorMessage },
-      { status: 500 },
+      { status: 500 }
     );
     mockResponse(errorResponse);
     setup();
