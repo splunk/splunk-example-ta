@@ -1,4 +1,5 @@
 import { setupServer } from "msw/node";
+import { afterAll, afterEach } from "vitest";
 
 export const server = setupServer();
 
