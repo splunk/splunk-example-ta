@@ -37,6 +37,10 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
       - run: pip install -r requirements-dev.txt
+      - name: TMP!!!! Build Package
+        uses: splunk/addonfactory-ucc-generator-action@feat/ucc_version_file
+        with:
+          version: ${{ steps.BuildVersion.outputs.VERSION }}
       - run: ucc-gen build
       - uses: actions/upload-artifact@v4
         with:
