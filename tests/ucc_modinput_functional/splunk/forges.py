@@ -323,14 +323,8 @@ def another_account_index(
     splunk_client: SplunkClient,
 ) -> Generator[Dict[str, str], None, None]:
     index_name = f"idx_mit_another_account_{utils.Common().sufix}"
-    splk_conf = splunk_client.splunk_configuration
-    splk_conf.create_index(
+    splunk_client.create_index(
         index_name,
-        splk_conf.service,
-        is_cloud=splk_conf.is_cloud,
-        acs_stack=splk_conf._acs_stack,
-        acs_server=splk_conf.acs_server,
-        splunk_token=splk_conf.token,
     )
     yield {"another_account_index_name": index_name}
 
