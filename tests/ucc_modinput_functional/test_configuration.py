@@ -73,9 +73,8 @@ def test_accounts(
     ),
 )
 def test_indexes(splunk_client: SplunkClient, another_account_index_name: str) -> None:
-    splk_config = splunk_client.splunk_configuration
-    actual_index = splk_config.get_index(
-        another_account_index_name, client_service=splk_config.service
+    actual_index = splunk_client.get_index(
+        another_account_index_name,
     )
     assert actual_index is not None
     assert actual_index.name == another_account_index_name
