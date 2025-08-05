@@ -60,6 +60,8 @@ def test_accounts(
     assert actual_another_account["api_key"] == defaults.ENCRYPTED_VALUE
 
 
+# Test all types of indexes
+@pytest.mark.parametrize("datatype", ["event", "metric"])
 @bootstrap(
     forge(
         set_loglevel,
@@ -72,9 +74,12 @@ def test_accounts(
         # if more indexes are needed, they can be created as well
     ),
 )
-def test_indexes(splunk_client: SplunkClient, another_account_index_name: str) -> None:
+def test_indexes(
+    splunk_client: SplunkClient, another_account_index_name: str, datatype: str
+) -> None:
     actual_index = splunk_client.get_index(
         another_account_index_name,
     )
     assert actual_index is not None
     assert actual_index.name == another_account_index_name
+    assert actual_index.content["datatype"] == datatype

@@ -320,12 +320,10 @@ def another_account(
 
 
 def another_account_index(
-    splunk_client: SplunkClient,
+    splunk_client: SplunkClient, test_id: str, datatype: str = None
 ) -> Generator[Dict[str, str], None, None]:
-    index_name = f"idx_mit_another_account_{utils.Common().sufix}"
-    splunk_client.create_index(
-        index_name,
-    )
+    index_name = f"idx_mit_another_account_{test_id}".lower()
+    splunk_client.create_index(index_name, datatype)
     yield {"another_account_index_name": index_name}
 
 
