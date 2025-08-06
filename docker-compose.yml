@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
 
   splunk:
-    image: splunk/splunk:9.4.3
+    image: splunk/splunk:latest
     container_name: splunk-example-ta
     ports:
       - "8000:8000"
