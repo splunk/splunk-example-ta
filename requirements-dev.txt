@@ -1,3 +1,3 @@
 pytest-splunk-addon==5.4.1
 splunk-add-on-ucc-framework==5.58.0
-splunk-add-on-ucc-modinput-test @ git+https://github.com/splunk/addonfactory-ucc-test.git@feat/metric-index
+splunk-add-on-ucc-modinput-test==2.0.0
