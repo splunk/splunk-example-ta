@@ -223,9 +223,9 @@
     "meta": {
         "name": "Splunk_TA_Example",
         "restRoot": "Splunk_TA_Example",
-        "version": "0.0.1+cbf8f61",
+        "version": "5.69.1+db4bc06e2",
         "displayName": "Splunk Add-on for Example",
-        "schemaVersion": "0.0.9",
+        "schemaVersion": "0.0.10",
         "supportedThemes": [
             "light",
             "dark"
