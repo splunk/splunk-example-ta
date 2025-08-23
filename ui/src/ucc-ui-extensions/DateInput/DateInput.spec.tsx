@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { vi } from "vitest";
+import { vi, describe, expect, it } from "vitest";
 
 import DateInput from "./DateInput";
 

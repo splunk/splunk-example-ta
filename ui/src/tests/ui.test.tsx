@@ -23,7 +23,7 @@ function mockResponse() {
 it("should show UCC label 2", async () => {
   vi.spyOn(console, "error").mockImplementation(console.log);
   mockResponse();
-  const container = renderConfigurationPage(getGlobalConfig(), {
+  renderConfigurationPage(getGlobalConfig(), {
     DateInput: {
       component: DateInputClass,
       type: "control",
