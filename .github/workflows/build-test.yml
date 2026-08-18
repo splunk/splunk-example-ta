@@ -100,7 +100,7 @@ jobs:
         with:
           name: Splunk_TA_Example
           path: build/package
-      - uses: splunk/appinspect-cli-action@v2.8
+      - uses: splunk/appinspect-cli-action@v2.15.0
         with:
           app_path: build/package
           included_tags: ${{ matrix.tags }}
@@ -184,4 +184,3 @@ jobs:
           echo "failed=${{ env.failed }}" >> $GITHUB_ENV
     outputs:
       failed: ${{ env.failed }}
-
