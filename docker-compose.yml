@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
 
   splunk:
-    image: splunk/splunk:latest
+    image: splunk/splunk:${SPLUNK_VERSION:-10.2.2}
     container_name: splunk-example-ta
     ports:
       - "8000:8000"
@@ -19,3 +19,4 @@ services:
       - SPLUNK_GENERAL_TERMS=${SPLUNK_GENERAL_TERMS:---accept-sgt-current-at-splunk-com}
     volumes:
       - ./output/Splunk_TA_Example:/opt/splunk/etc/apps/Splunk_TA_Example
+      - ./tests/splunk-ci-config:/opt/splunk/etc/apps/splunk_ci_test_config

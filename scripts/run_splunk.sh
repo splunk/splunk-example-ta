@@ -16,6 +16,7 @@
 
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 REPO_ROOT_DIR=$(cd "$SCRIPT_DIR/.." && pwd)
+SPLUNK_VERSION="${1:-${SPLUNK_VERSION:-10.2.2}}"
 
 
 # running on ARM Mac
@@ -25,6 +26,7 @@ fi
 
 docker run \
   -v "$REPO_ROOT_DIR/psa-output/Splunk_TA_Example:/opt/splunk/etc/apps/Splunk_TA_Example" \
+  -v "$REPO_ROOT_DIR/tests/splunk-ci-config:/opt/splunk/etc/apps/splunk_ci_test_config" \
   -p 8000:8000 \
   -p 8088:8088 \
   -p 8089:8089 \
@@ -36,4 +38,4 @@ docker run \
   -e "SPLUNK_GENERAL_TERMS=--accept-sgt-current-at-splunk-com" \
   -d \
   --pull=always \
-  --name splunk splunk/splunk:${1:-"latest"}
+  --name splunk "splunk/splunk:$SPLUNK_VERSION"
