@@ -32,7 +32,7 @@ jobs:
           node-version-file: 'ui/package.json'
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.7"
+          python-version: "3.9"
       - run: |
           python3 -m venv .venv
           source .venv/bin/activate
@@ -100,7 +100,7 @@ jobs:
         with:
           name: Splunk_TA_Example
           path: build/package
-      - uses: splunk/appinspect-cli-action@v2.8
+      - uses: splunk/appinspect-cli-action@v2.15.0
         with:
           app_path: build/package
           included_tags: ${{ matrix.tags }}
@@ -120,7 +120,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.7"
+          python-version: "3.9"
       - uses: actions/download-artifact@v4
         with:
           name: Splunk_TA_Example-raw-output
@@ -138,7 +138,7 @@ jobs:
         run : |
           sudo chown -R runner:runner psa-output/Splunk_TA_Example/
           chmod u+rwx psa-output/Splunk_TA_Example/
-          pytest tests/knowledge --splunk-type=external --splunk-app=package/ --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f
+          pytest tests/knowledge --splunk-type=external --splunk-app=package/ --splunk-data-generator=tests/knowledge --splunk-host=localhost --splunk-port=8089 --splunk-user=admin --splunk-password=Chang3d! --splunk-hec-token=4a8a737d-5452-426c-a6f7-106dca4e813f --ignore-errors-not-related-to-addon=tests/knowledge/.ignore_errors_not_related_to_addon
       - name: Set output if steps failed
         run: |
           echo "failed=${{ env.failed }}" >> $GITHUB_ENV
@@ -160,7 +160,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.7"
+          python-version: "3.9"
       - uses: actions/download-artifact@v4
         with:
           name: Splunk_TA_Example
@@ -184,4 +184,3 @@ jobs:
           echo "failed=${{ env.failed }}" >> $GITHUB_ENV
     outputs:
       failed: ${{ env.failed }}
-
