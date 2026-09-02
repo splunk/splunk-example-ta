@@ -67,9 +67,13 @@
     "react-dom": "16.14.0",
     "@types/react": "16.14.62",
     "@types/react-dom": "16.9.25",
-    "minimatch": "3.1.4",
+    "minimatch@3.1.2": "3.1.4",
     "minimatch@3.1.4": {
       "brace-expansion": "1.1.18"
+    },
+    "minimatch@9.0.5": {
+      ".": "9.0.9",
+      "brace-expansion": "2.1.4"
     },
     "dompurify": "3.4.12",
     "shell-quote": "1.9.0",
